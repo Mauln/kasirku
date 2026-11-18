@@ -1,0 +1,46 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.landing-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.landing-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+
+.landing-card__title {
+  margin: 0 0 var(--space-2);
+  color: var(--color-primary-dark);
+}
+
+.landing-card__subtitle {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.landing-card__meta {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}

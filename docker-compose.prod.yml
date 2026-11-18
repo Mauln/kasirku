@@ -1,0 +1,6 @@
+# Akan dikonfigurasi di Fase 9 — Production
+# 13 services: app, worker, scheduler, mysql, redis, nginx,
+# minio, chatwoot, bookstack, uptime-kuma, goalert, glitchtip,
+# chatwoot-postgres
+version: '3.8'
+services: {}

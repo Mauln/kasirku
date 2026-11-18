@@ -1,0 +1,6 @@
+{
+  "name": "Kasirku",
+  "description": "Kasir online UMKM Indonesia — Laravel 13, MySQL 8.4, Redis 7.4, Docker, Vanilla HTML/CSS/JS (Fase 0 Step 0.1).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

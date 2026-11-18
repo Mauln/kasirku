@@ -1,0 +1,22 @@
+{
+  "name": "kasirku",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "prettier": "^3.0.0",
+    "@playwright/test": "^1.40.0"
+  },
+  "scripts": {
+  "dev": "node scripts/dev-preview.mjs",
+  "start": "node scripts/dev-preview.mjs",
+  "lint:js": "eslint resources/js/",
+  "lint:css": "stylelint \"resources/css/**/*.css\"",
+  "format:check": "prettier --check \"resources/**/*.{js,css}\"",
+  "format:fix": "prettier --write \"resources/**/*.{js,css}\"",
+  "test:e2e": "playwright test"
+}
+}

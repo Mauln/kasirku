@@ -1,0 +1,17 @@
+/* Kasirku Design Tokens — 87 token (placeholder Fase 0 Step 0.1, lengkap di Step 0.4) */
+:root {
+  --color-primary: #29b6b3;
+  --color-primary-hover: #239c99;
+  --color-primary-dark: #196d6b;
+  --color-bg: #f7f9fa;
+  --color-surface: #fff;
+  --color-border: #e3e8eb;
+  --color-text: #1a2b2e;
+  --color-text-muted: #6b7a7e;
+  --color-text-inverse: #fff;
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --radius-md: 8px;
+}

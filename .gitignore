@@ -1,0 +1,46 @@
+# Dependencies
+/node_modules
+/vendor
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Build artifacts
+/public/js/*
+!/public/js/.gitkeep
+/public/css/*
+!/public/css/.gitkeep
+
+# IDE
+/.idea
+/.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel
+/storage/*.key
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+/bootstrap/cache/*
+!/bootstrap/cache/.gitkeep
+
+# Testing
+/coverage
+/tests/.phpunit.result.cache
+/playwright-report
+/test-results
+
+# Docker volumes
+/mysql_data
