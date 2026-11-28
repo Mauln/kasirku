@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasirku v2.0 — Sub-Fase 0A Workspace &amp; Panduan Fondasi</title>
+    <meta
+      name="description"
+      content="SaaS POS online untuk UMKM Indonesia — cepat, murah, tanpa ribet."
+    />
+    <meta property="og:title" content="Kasirku v2.0" />
+    <meta
+      property="og:description"
+      content="SaaS POS online untuk UMKM Indonesia — cepat, murah, tanpa ribet."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="app-env" content="local" />
+    <link rel="stylesheet" href="/css/subfase-0a.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="app-header__inner">
+        <div class="brand">
+          <span class="brand__icon" aria-hidden="true">K</span>
+          <div class="brand__text">
+            <span class="brand__wordmark">Kasirku</span>
+            <span class="brand__subtitle">Sub-Fase 0A &middot; Fondasi Infrastruktur</span>
+          </div>
+        </div>
+        <div class="header-badges">
+          <span class="env-badge" role="status" aria-label="Environment Lokal">LOCAL</span>
+          <span class="version-badge">v2.0.0-0A</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" id="main-content">
+      <section class="hero-card" aria-labelledby="hero-title">
+        <div class="hero-card__content">
+          <p class="hero-card__eyebrow">Roadmap Pengembangan Kasirku v2.0 &middot; Fase 0</p>
+          <h1 class="hero-card__title" id="hero-title">
+            Sub-Fase 0A: Inisialisasi Repository, Docker Lokal &amp; Pipeline CI
+          </h1>
+          <p class="hero-card__desc">
+            Fondasi teknis untuk SaaS POS UMKM Indonesia dengan backend Laravel (PHP 8.4, MySQL 8.4,
+            Redis 7.4, Nginx 1.28) dan frontend vanilla murni (HTML + CSS + ES Modules) tanpa React,
+            Vue, TypeScript, maupun Tailwind.
+          </p>
+        </div>
+        <div class="hero-metrics" id="hero-metrics" aria-label="Ringkasan status Sub-Fase 0A"></div>
+      </section>
+
+      <nav class="tab-nav" role="tablist" aria-label="Navigasi materi Sub-Fase 0A">
+        <button
+          type="button"
+          class="tab-btn tab-btn--active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-overview"
+          id="tab-overview"
+          data-tab="overview"
+        >
+          Ringkasan &amp; Kepatuhan
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-laravel"
+          id="tab-laravel"
+          data-tab="laravel"
+        >
+          Panduan Setup Laravel &amp; Migrasi
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-infra"
+          id="tab-infra"
+          data-tab="infra"
+        >
+          Docker (7) &amp; CI (11 Langkah)
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-changes"
+          id="tab-changes"
+          data-tab="changes"
+        >
+          Perubahan File 0A
+        </button>
+      </nav>
+
+      <section
+        class="tab-panel"
+        id="panel-overview"
+        role="tabpanel"
+        aria-labelledby="tab-overview"
+      ></section>
+
+      <section
+        class="tab-panel"
+        id="panel-laravel"
+        role="tabpanel"
+        aria-labelledby="tab-laravel"
+        hidden
+      ></section>
+
+      <section
+        class="tab-panel"
+        id="panel-infra"
+        role="tabpanel"
+        aria-labelledby="tab-infra"
+        hidden
+      ></section>
+
+      <section
+        class="tab-panel"
+        id="panel-changes"
+        role="tabpanel"
+        aria-labelledby="tab-changes"
+        hidden
+      ></section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="app-footer__inner">
+        <p>Kasirku v2.0 &mdash; Vanilla Frontend Verified (ES Modules + CSS Custom Properties)</p>
+        <p>Tahap aktif: Sub-Fase 0A (Menunggu persetujuan sebelum Sub-Fase 0B)</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/js/subfase-0a.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+echo "🔍 [Kasirku Pre-Commit] Menjalankan pemeriksaan kualitas & keamanan..."
+
+# 1. Cek larangan branch main (Aturan Emas #3)
+CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo '')"
+if [ "$CURRENT_BRANCH" = "main" ]; then
+  echo "❌ DITOLAK: Dilarang commit langsung ke branch 'main' (Aturan Emas #3). Gunakan PR dari 'develop' atau 'hotfix/*'."
+  exit 1
+fi
+
+# 2. Cek larangan file .env asli
+if git diff --cached --name-only | grep -E '^\.env(\..+)?$' | grep -v '^\.env\.example$'; then
+  echo "❌ DITOLAK: File .env terdeteksi di staging area (Aturan Emas #2)."
+  exit 1
+fi
+
+# 3. Vanilla Compliance & Lint JS/CSS + Prettier
+npm run lint:js || exit 1
+npm run lint:css || exit 1
+npm run format:check || exit 1
+node scripts/build-vanilla.mjs --verify-only || exit 1
+
+# 4. Laravel Pint (jika vendor/bin/pint tersedia)
+if [ -f "vendor/bin/pint" ]; then
+  ./vendor/bin/pint --test || exit 1
+fi
+
+# 5. Gitleaks secret scan (jika terinstal di lokal)
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --config=.gitleaks.toml --verbose || exit 1
+fi
+
+echo "✅ [Kasirku Pre-Commit] Semua pemeriksaan lulus!"

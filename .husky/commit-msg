@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+MSG_FILE="$1"
+COMMIT_MSG="$(head -n1 "$MSG_FILE")"
+
+# Validasi panjang subject line <= 72 karakter (Rule §7.7)
+if [ "${#COMMIT_MSG}" -gt 72 ]; then
+  echo "❌ DITOLAK: Subject commit melebihi 72 karakter (${#COMMIT_MSG} karakter)."
+  exit 1
+fi
+
+# Validasi Conventional Commits: <type>(<scope>): <deskripsi>
+PATTERN="^(feat|fix|docs|style|refactor|perf|test|chore|ci)\([a-z0-9-]+\): .{3,}$"
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+  echo "❌ DITOLAK: Format commit harus mengikuti Conventional Commits (Rule §7):"
+  echo "   <type>(<scope>): <deskripsi singkat>"
+  echo "   Type: feat|fix|docs|style|refactor|perf|test|chore|ci"
+  echo "   Contoh: chore(init): inisialisasi repo, docker lokal, dan pipeline CI"
+  exit 1
+fi
+
+echo "✅ Commit message valid: $COMMIT_MSG"

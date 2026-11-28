@@ -1,0 +1,6 @@
+{
+  "name": "Kasirku v2.0",
+  "description": "SaaS POS online untuk UMKM Indonesia — cepat, murah, tanpa ribet.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

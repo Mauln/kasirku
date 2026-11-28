@@ -1,0 +1,13 @@
+title = "Kasirku v2.0 Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allow placeholder examples in .env.example and docs"
+paths = [
+    '''^\.env\.example$''',
+    '''^docs/''',
+    '''^public/assets/aistudio/''',
+    '''^tests/'''
+]

@@ -1,0 +1,48 @@
+# Dependencies
+/node_modules/
+/vendor/
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+storage/*.key
+
+# Build & Generated Vanilla Assets
+/public/build/
+/public/hot
+/public/js/
+/public/css/
+/public/storage
+/build/
+/dist/
+
+# Laravel Storage & Caches
+/bootstrap/cache/*.php
+/storage/app/*
+!/storage/app/.gitignore
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+*.log
+
+# Testing & QA Artifacts
+/coverage/
+/.phpunit.cache
+/.phpunit.result.cache
+/.playwright-cli/
+/playwright-report/
+/test-results/
+/playwright/.cache/
+/.aistudio/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

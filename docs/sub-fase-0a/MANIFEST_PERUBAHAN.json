@@ -1,0 +1,335 @@
+{
+  "subPhase": "0A",
+  "title": "Inisialisasi Repository, Docker Lokal & Pipeline CI",
+  "updatedAt": "2026-11-28",
+  "summary": {
+    "new": 34,
+    "modified": 5,
+    "deleted": 6,
+    "moved": 1
+  },
+  "entries": [
+    {
+      "changeType": "New",
+      "path": "composer.json",
+      "purpose": "Manifest dependensi Laravel 12/13 & PHP 8.4",
+      "reason": "Menyiapkan fondasi backend PHP, Sanctum, Horizon, Pint, PHPStan, dan Pest",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "pint.json",
+      "purpose": "Konfigurasi Laravel Pint",
+      "reason": "CI langkah #1 (Lint PHP)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "phpstan.neon",
+      "purpose": "Konfigurasi PHPStan level 6+",
+      "reason": "Static analysis direktori app/",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docker-compose.yml",
+      "purpose": "Orkestrasi 7 container lokal",
+      "reason": "app, nginx, mysql, redis, queue, scheduler, phpmyadmin sesuai Roadmap 0A",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docker/php/Dockerfile",
+      "purpose": "Dockerfile PHP 8.4-FPM Alpine",
+      "reason": "Container backend PHP 8.4 dengan ekstensi MySQL & Redis",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docker/php/php.ini",
+      "purpose": "Konfigurasi runtime PHP",
+      "reason": "Menetapkan memory_limit, opcache, dan timezone Asia/Jakarta",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docker/nginx/default.conf",
+      "purpose": "Konfigurasi Nginx 1.28",
+      "reason": "Routing Laravel + cache aset statis Vanilla JS/CSS",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docker/mysql/my.cnf",
+      "purpose": "Konfigurasi MySQL 8.4",
+      "reason": "Menegakkan charset utf8mb4_unicode_ci dan strict SQL mode",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".dockerignore",
+      "purpose": "Pengecualian Docker build context",
+      "reason": "Mengecualikan vendor, node_modules, .git, dan .env",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "eslint.config.js",
+      "purpose": "ESLint 9+/10 flat config",
+      "reason": "Memblokir React/Vue/TS/Tailwind/Inertia dan dynamic innerHTML",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".stylelintrc.json",
+      "purpose": "Konfigurasi Stylelint",
+      "reason": "Menegakkan color-no-hex dan selector class BEM",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".prettierrc",
+      "purpose": "Konfigurasi Prettier",
+      "reason": "Konsistensi format JS dan CSS (CI langkah #4)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".prettierignore",
+      "purpose": "Daftar abaikan Prettier",
+      "reason": "Mengecualikan folder vendor, assets, dan build",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".gitleaks.toml",
+      "purpose": "Konfigurasi secret scan Gitleaks",
+      "reason": "Mencegah kebocoran kredensial di pre-commit & CI",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".github/workflows/ci.yml",
+      "purpose": "Workflow CI 11 langkah",
+      "reason": "Memenuhi Rule §10.4 (Pint, ESLint, Stylelint, Prettier, Pest, Audit, Gitleaks, Trivy, Guard, Coverage)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "purpose": "Template Pull Request wajib",
+      "reason": "Memenuhi checklist PR Rule §6.1",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".husky/pre-commit",
+      "purpose": "Git pre-commit hook",
+      "reason": "Blokir commit ke main, blokir .env, jalankan linter & secret check",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": ".husky/commit-msg",
+      "purpose": "Git commit-msg hook",
+      "reason": "Validasi Conventional Commits & batas 72 karakter",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "scripts/build-vanilla.mjs",
+      "purpose": "Skrip validasi & copy aset vanilla",
+      "reason": "Menyalin resources/js & resources/css ke public/ tanpa bundler JS",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "scripts/dev-server.mjs",
+      "purpose": "Server HTTP Node.js lokal port 3000",
+      "reason": "Menyajikan portal verifikasi Sub-Fase 0A dan endpoint /up",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "resources/css/subfase-0a.css",
+      "purpose": "Stylesheet CSS murni Sub-Fase 0A",
+      "reason": "Menggunakan CSS custom properties & BEM tanpa hex colors",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "resources/js/subfase-0a.js",
+      "purpose": "Modul ES Vanilla JS Sub-Fase 0A",
+      "reason": "Menjalankan portal dokumentasi & verifikasi dengan createElement/textContent",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "tests/Unit/SubFase0A/tooling.test.mjs",
+      "purpose": "Suite pengujian otomatis Sub-Fase 0A",
+      "reason": "Memverifikasi ESLint, Stylelint, Docker 7 service, CI 11 langkah, dan manifest",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "README.md",
+      "purpose": "Dokumentasi utama repository",
+      "reason": "Panduan cepat menjalankan proyek dan strategi branch",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/prd.md",
+      "purpose": "Dokumen PRD Kasirku v2.0",
+      "reason": "Penyimpanan dokumen master di repo /docs sesuai Rule §9.2",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/design.md",
+      "purpose": "Dokumen Design Kasirku v2.0",
+      "reason": "Penyimpanan dokumen master di repo /docs sesuai Rule §9.2",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/schema.md",
+      "purpose": "Dokumen Schema Kasirku v2.0",
+      "reason": "Penyimpanan dokumen master di repo /docs sesuai Rule §9.2",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/architecture.md",
+      "purpose": "Dokumen Architecture Kasirku v2.0",
+      "reason": "Penyimpanan dokumen master di repo /docs sesuai Rule §9.2",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/rule.md",
+      "purpose": "Dokumen Rule Kasirku v2.0",
+      "reason": "Penyimpanan dokumen master di repo /docs sesuai Rule §9.2",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/roadmap.md",
+      "purpose": "Dokumen Roadmap Kasirku v2.0",
+      "reason": "Penyimpanan dokumen master di repo /docs sesuai Rule §9.2",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/sub-fase-0a/PANDUAN_SETUP_LARAVEL_DAN_MIGRASI_AISTUDIO.md",
+      "purpose": "Panduan setup Laravel 12/13, migrasi file AI Studio, Git/GitHub, dan Docker",
+      "reason": "Materi pembelajaran bertahap sebelum implementasi fitur",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/sub-fase-0a/PANDUAN_SUB_FASE_0A.md",
+      "purpose": "Panduan implementasi & verifikasi Sub-Fase 0A",
+      "reason": "Dokumentasi lengkap tujuan, konfigurasi, dan pengujian 0A",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/sub-fase-0a/PERUBAHAN_STRUKTUR_PROJECT.md",
+      "purpose": "Catatan perubahan struktur file Sub-Fase 0A",
+      "reason": "Audit keterlacakan penambahan, perubahan, dan penghapusan file",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "New",
+      "path": "docs/sub-fase-0a/MANIFEST_PERUBAHAN.json",
+      "purpose": "Manifest JSON perubahan struktur Sub-Fase 0A",
+      "reason": "Data terstruktur untuk portal dan validasi unit test",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Modified",
+      "path": "package.json",
+      "purpose": "Manajemen skrip & tooling JS/CSS",
+      "reason": "Menghapus React/TS/Tailwind/Vite terlarang dan memasang ESLint, Stylelint, Prettier, Husky",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Modified",
+      "path": "index.html",
+      "purpose": "Entry HTML portal pratinjau",
+      "reason": "Sinkronisasi meta Kasirku v2.0 dan memuat ES module vanilla tanpa React",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Modified",
+      "path": "metadata.json",
+      "purpose": "Metadata applet AI Studio",
+      "reason": "Mengisi nama dan deskripsi resmi Kasirku v2.0",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Modified",
+      "path": ".env.example",
+      "purpose": "Template environment variable",
+      "reason": "Menyesuaikan key MySQL 8.4, Redis 7.4, adapter, dan POS/Kasbon",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Modified",
+      "path": ".gitignore",
+      "purpose": "Aturan abaikan Git",
+      "reason": "Menambahkan jalur vendor Laravel, storage, public/js, public/css, dan Playwright",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Deleted",
+      "path": "src/App.tsx",
+      "purpose": "Komponen starter React/TS kosong",
+      "reason": "Dilarang oleh Aturan Emas #41-42 (tanpa React/TypeScript)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Deleted",
+      "path": "src/main.tsx",
+      "purpose": "Entry ReactDOM starter",
+      "reason": "Digantikan Vanilla JS ES module di resources/js/subfase-0a.js",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Deleted",
+      "path": "src/index.css",
+      "purpose": "Stylesheet Tailwind v4 starter",
+      "reason": "Dilarang oleh Aturan Emas #41 (tanpa Tailwind CSS)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Deleted",
+      "path": "src/",
+      "purpose": "Direktori starter TypeScript/React",
+      "reason": "Dibersihkan setelah migrasi ke struktur resources/ Laravel",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Deleted",
+      "path": "tsconfig.json",
+      "purpose": "Konfigurasi TypeScript",
+      "reason": "Dilarang oleh Rule §8.5 (tanpa TypeScript)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Deleted",
+      "path": "vite.config.ts",
+      "purpose": "Konfigurasi Vite + React/Tailwind plugin",
+      "reason": "Dilarang oleh Aturan Emas #42 (tanpa bundler JS)",
+      "status": "Selesai"
+    },
+    {
+      "changeType": "Moved",
+      "path": "public/assets/aistudio/*.txt -> docs/*.md",
+      "purpose": "Konsolidasi 6 dokumen master Kasirku v2.0",
+      "reason": "Rule §9.2 mewajibkan dokumen master berada di folder /docs/",
+      "status": "Selesai"
+    }
+  ]
+}
