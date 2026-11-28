@@ -181,7 +181,9 @@ jobs:
           REDIS_HOST: 127.0.0.1
         run: |
           if [ -f vendor/bin/pest ]; then
-            ./vendor/bin/pest --coverage --min=100
+            mkdir -p build/logs
+            ./vendor/bin/pest --coverage --coverage-clover=build/logs/clover.xml
+            php scripts/check-coverage.php build/logs/clover.xml
           else
             echo "Backend coverage gate activates with Sub-Fase 0B+ feature suites."
           fi
