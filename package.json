@@ -8,10 +8,10 @@
     "build": "node scripts/build-vanilla.mjs",
     "lint": "npm run lint:js && npm run lint:css && npm run format:check",
     "lint:js": "eslint resources/js/",
-    "lint:css": "stylelint 'resources/css/**/*.css'",
-    "format:check": "prettier --check 'resources/**/*.{js,css}'",
+    "lint:css": "stylelint \"resources/css/**/*.css\"",
+    "format:check": "prettier --check \"resources/**/*.{js,css}\"",
     "format:write": "prettier --write 'resources/**/*.{js,css}'",
-    "test": "node --test tests/Unit/SubFase0A/*.test.mjs",
+    "test": "node --test tests/Unit/SubFase0A/*.test.mjs tests/Unit/SubFase0B/*.test.mjs",
     "prepare": "husky || true"
   },
   "devDependencies": {

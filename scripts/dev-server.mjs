@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
+import {
+  GUARD_PRESETS,
+  collectSubFase0BStatus,
+  evaluateProductionGuards,
+} from "./subfase-0b-validator.mjs";
 
 const rootDir = process.cwd();
 const port = Number(process.env.PORT || 3000);
@@ -55,7 +60,7 @@ const server = http.createServer((req, res) => {
         queue: "ok (docker queue configured)",
         storage: "ok (local filesystem)",
       },
-      version: "2.0.0-0a",
+      version: "2.0.0-0b",
       environment: "local",
     });
     return;
@@ -69,6 +74,29 @@ const server = http.createServer((req, res) => {
     }
     const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
     sendJson(res, 200, manifest);
+    return;
+  }
+
+  if (pathname === "/api/subfase-0b/overview") {
+    const manifest0bPath = path.join(rootDir, "docs", "sub-fase-0b", "MANIFEST_PERUBAHAN.json");
+    const manifest0b = fs.existsSync(manifest0bPath)
+      ? JSON.parse(fs.readFileSync(manifest0bPath, "utf8"))
+      : null;
+    sendJson(res, 200, {
+      ...collectSubFase0BStatus(),
+      manifest: manifest0b,
+    });
+    return;
+  }
+
+  if (pathname === "/api/subfase-0b/guard-check") {
+    const presetKey = reqUrl.searchParams.get("preset") || "local";
+    const preset = GUARD_PRESETS[presetKey] || GUARD_PRESETS.local;
+    sendJson(res, 200, {
+      preset: presetKey,
+      label: preset.label,
+      ...evaluateProductionGuards(preset),
+    });
     return;
   }
 

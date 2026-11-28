@@ -239,6 +239,7 @@ body {
 }
 
 .card {
+  min-width: 0;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -275,6 +276,11 @@ body {
   border-radius: var(--radius-md);
   background-color: var(--color-surface-alt);
   font-size: 14px;
+}
+
+.check-list__item > :first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .status-pill {
@@ -421,6 +427,58 @@ body {
 
 .app-footer p {
   margin: 0;
+}
+
+.stack-column {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.preset-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.guard-banner {
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.guard-banner--ok {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.guard-banner--fail {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+.matrix-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.matrix-mark--yes {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.matrix-mark--no {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
