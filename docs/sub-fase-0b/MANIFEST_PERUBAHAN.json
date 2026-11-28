@@ -3,7 +3,7 @@
   "title": "Kontrak Adapter, Guard Rules & Skema Database Core",
   "updatedAt": "2026-11-28",
   "summary": {
-    "new": 70,
+    "new": 71,
     "modified": 7,
     "deleted": 0,
     "moved": 0
@@ -74,6 +74,7 @@
     { "changeType": "New", "path": "tests/Unit/SubFase0B/AdapterContractTest.php", "purpose": "Pest unit test 8 contracts", "reason": "Verifikasi DI & fallback adapter", "status": "Selesai" },
     { "changeType": "New", "path": "tests/Unit/SubFase0B/GuardRulesTest.php", "purpose": "Pest unit test 8 guard rules", "reason": "Verifikasi reject dev & pass prod", "status": "Selesai" },
     { "changeType": "New", "path": "tests/Feature/SubFase0B/DatabaseCoreSeederTest.php", "purpose": "Pest feature test DB & seeders", "reason": "Verifikasi 7 tabel & idempotency 126 baris", "status": "Selesai" },
+    { "changeType": "New", "path": "scripts/check-coverage.php", "purpose": "Penjaga threshold coverage Rule §10.2", "reason": "Memverifikasi 100% controller/middleware dan >=70% services dari Clover XML", "status": "Selesai" },
     { "changeType": "New", "path": "scripts/subfase-0b-validator.mjs", "purpose": "Validator & simulator Guard JS", "reason": "Evaluasi struktural & simulator UI 0B", "status": "Selesai" },
     { "changeType": "New", "path": "tests/Unit/SubFase0B/contractsAndSchema.test.mjs", "purpose": "Unit test node:test Sub-Fase 0B", "reason": "Verifikasi kontrak, guard, migrasi, 126 matriks", "status": "Selesai" },
     { "changeType": "New", "path": "docs/sub-fase-0b/PANDUAN_SUB_FASE_0B.md", "purpose": "Panduan & materi Sub-Fase 0B", "reason": "Dokumentasi pembelajaran bertahap", "status": "Selesai" },

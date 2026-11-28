@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Ditambahkan (New — 70 File)
+## 1. Ditambahkan (New — 71 File)
 
 | Kelompok | Path | Fungsi | Alasan Penambahan | Status |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@
 | Models | `app/Models/{Plan,Feature,PlanFeature,AddOn,AdminUser,AdminSession,Partner}.php` (7 file) | Model Eloquent domain Shared & Admin/Internal | Mendukung seeder idempoten & relasi | Selesai |
 | Seeders | `database/seeders/{Plan,Feature,PlanFeature,AddOn,Admin,Database}Seeder.php` (6 file) | 5 Reference Seeders idempoten + orchestrator `DatabaseSeeder` | Memenuhi Schema §7.1 (6 plans, 21 features, 126 mappings, 3 add-ons, 1 admin) | Selesai |
 | Tests & Validator | `tests/Pest.php`, `tests/Unit/SubFase0B/{AdapterContractTest,GuardRulesTest}.php`, `tests/Feature/SubFase0B/DatabaseCoreSeederTest.php` (4 file) | Konfigurasi Pest binding `Tests\TestCase` dan test backend contracts, guard, migrasi, serta seeder | Mengikat Laravel container/DB ke Pest + verifikasi Sub-Fase 0B | Selesai |
-| Tests & Validator | `scripts/subfase-0b-validator.mjs`, `tests/Unit/SubFase0B/contractsAndSchema.test.mjs` (2 file) | Validator Node.js & unit test `node:test` untuk kontrak, 8 guard rules, 7 migrasi, dan 126 matriks | Memungkinkan verifikasi otomatis tanpa menunggu runtime PHP lokal | Selesai |
+| Tests & Validator | `scripts/check-coverage.php`, `scripts/subfase-0b-validator.mjs`, `tests/Unit/SubFase0B/contractsAndSchema.test.mjs` (3 file) | Coverage gate Rule §10.2 (Clover XML), validator Node.js & unit test `node:test` untuk kontrak, 8 guard rules, 7 migrasi, dan 126 matriks | Penjaga threshold coverage CI + verifikasi otomatis | Selesai |
 | Dokumentasi 0B | `docs/sub-fase-0b/{PANDUAN_SUB_FASE_0B.md,PERUBAHAN_STRUKTUR_PROJECT.md,MANIFEST_PERUBAHAN.json}` (3 file) | Panduan pembelajaran, audit perubahan struktur, dan manifest JSON 0B | Memenuhi instruksi dokumentasi perubahan per sub-fase | Selesai |
 
 ---
