@@ -6,7 +6,7 @@ use App\Exceptions\ProductionGuardException;
 use App\Services\Guard\ProductionGuardService;
 
 it('passes all 8 production guard rules when configuration is production-safe', function (): void {
-    $guard = new ProductionGuardService();
+    $guard = new ProductionGuardService;
 
     $snapshot = [
         'otp_driver' => 'fonnte',
@@ -34,7 +34,7 @@ it('passes all 8 production guard rules when configuration is production-safe', 
 });
 
 it('rejects dev/unsafe drivers and flags all failing rules', function (): void {
-    $guard = new ProductionGuardService();
+    $guard = new ProductionGuardService;
 
     $unsafe = [
         'otp_driver' => 'log',

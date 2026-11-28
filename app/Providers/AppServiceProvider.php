@@ -50,18 +50,18 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(EmailSender::class, function (): EmailSender {
             return match ((string) config('services.email.driver', 'log')) {
-                'log', 'array' => new LogEmailSender(),
-                'fake' => new FakeEmailSender(),
-                'mailpit', 'smtp' => new MailpitEmailSender(),
-                'ses' => new SesEmailSender(),
+                'log', 'array' => new LogEmailSender,
+                'fake' => new FakeEmailSender,
+                'mailpit', 'smtp' => new MailpitEmailSender,
+                'ses' => new SesEmailSender,
                 default => throw new RuntimeException('Unknown email driver'),
             };
         });
 
         $this->app->bind(OtpSender::class, function ($app): OtpSender {
             return match ((string) config('services.otp.driver', 'log')) {
-                'log' => new LogOtpSender(),
-                'fake' => new FakeOtpSender(),
+                'log' => new LogOtpSender,
+                'fake' => new FakeOtpSender,
                 'fonnte' => new FonnteOtpSender((array) config('services.otp.fonnte', [])),
                 'email' => new EmailOtpSender($app->make(EmailSender::class)),
                 'composite' => new CompositeOtpSender(
@@ -74,8 +74,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(StorageDriver::class, function (): StorageDriver {
             return match ((string) config('services.storage.driver', 'local')) {
-                'local' => new LocalStorageDriver(),
-                'fake' => new FakeStorageDriver(),
+                'local' => new LocalStorageDriver,
+                'fake' => new FakeStorageDriver,
                 's3', 'minio', 'r2' => new S3StorageDriver('s3'),
                 default => throw new RuntimeException('Unknown storage driver'),
             };
@@ -83,8 +83,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ErrorReporter::class, function (): ErrorReporter {
             return match ((string) config('services.error_tracker.driver', 'log')) {
-                'log' => new LogErrorReporter(),
-                'fake' => new FakeErrorReporter(),
+                'log' => new LogErrorReporter,
+                'fake' => new FakeErrorReporter,
                 'sentry', 'glitchtip' => new SentryErrorReporter((array) config('services.error_tracker', [])),
                 default => throw new RuntimeException('Unknown error tracker driver'),
             };
@@ -122,10 +122,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(PrinterDriver::class, function (): PrinterDriver {
             return match ((string) config('services.printer.driver', 'log')) {
-                'log' => new LogPrinterDriver(),
-                'fake' => new FakePrinterDriver(),
-                'bluetooth' => new BluetoothPrinterDriver(),
-                'css' => new CssPrintDriver(),
+                'log' => new LogPrinterDriver,
+                'fake' => new FakePrinterDriver,
+                'bluetooth' => new BluetoothPrinterDriver,
+                'css' => new CssPrintDriver,
                 default => throw new RuntimeException('Unknown printer driver'),
             };
         });

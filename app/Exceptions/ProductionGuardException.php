@@ -16,7 +16,7 @@ final class ProductionGuardException extends RuntimeException
         $keys = array_map(static fn (array $item): string => $item['env_key'], $violations);
 
         parent::__construct(
-            'Production guard rules failed for environment configuration: ' . implode(', ', $keys)
+            'Production guard rules failed for environment configuration: '.implode(', ', $keys)
         );
     }
 

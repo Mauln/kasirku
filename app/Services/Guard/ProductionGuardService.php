@@ -88,7 +88,7 @@ final class ProductionGuardService
                 'rule' => 7,
                 'env_key' => 'PROVIDER_CREDENTIALS',
                 'passed' => $credentialsMissing === [],
-                'actual' => $credentialsMissing === [] ? 'configured' : 'missing:' . implode(',', $credentialsMissing),
+                'actual' => $credentialsMissing === [] ? 'configured' : 'missing:'.implode(',', $credentialsMissing),
                 'expected' => 'Semua kredensial provider aktif terisi (non-empty)',
                 'message' => 'Kredensial provider non-fake wajib terisi lengkap.',
             ],
@@ -223,6 +223,6 @@ final class ProductionGuardService
             return '(invalid-url)';
         }
 
-        return $parsed['scheme'] . '://' . $parsed['host'];
+        return $parsed['scheme'].'://'.$parsed['host'];
     }
 }

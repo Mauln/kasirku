@@ -27,6 +27,6 @@ final class LogOtpSender implements OtpSender
             return str_repeat('*', $length);
         }
 
-        return substr($target, 0, 2) . str_repeat('*', $length - 4) . substr($target, -2);
+        return substr($target, 0, 2).str_repeat('*', $length - 4).substr($target, -2);
     }
 }

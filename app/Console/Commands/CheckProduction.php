@@ -19,7 +19,7 @@ final class CheckProduction extends Command
         $results = $guardService->evaluate();
 
         $rows = array_map(static fn (array $item): array => [
-            '#' . $item['rule'],
+            '#'.$item['rule'],
             $item['env_key'],
             $item['passed'] ? 'PASS' : 'FAIL',
             $item['actual'],

@@ -22,7 +22,7 @@ final class FakeStorageDriver implements StorageDriver
 
     public function url(string $path): string
     {
-        return 'https://fake-storage.kasirku.test/' . $this->normalize($path);
+        return 'https://fake-storage.kasirku.test/'.$this->normalize($path);
     }
 
     public function delete(string $path): bool

@@ -43,10 +43,10 @@ it('resolves all 8 contracts from Laravel container via config drivers', functio
 });
 
 it('falls back to EmailOtpSender when primary OTP fails in CompositeOtpSender', function (): void {
-    $primary = new FakeOtpSender();
+    $primary = new FakeOtpSender;
     $primary->forceFailure(true);
 
-    $email = new FakeEmailSender();
+    $email = new FakeEmailSender;
     $composite = new CompositeOtpSender($primary, new EmailOtpSender($email));
 
     $ok = $composite->send('merchant@example.com', '123456', 'whatsapp');
