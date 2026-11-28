@@ -35,7 +35,6 @@ use App\Services\Adapters\Printer\LogPrinterDriver;
 use App\Services\Adapters\Storage\FakeStorageDriver;
 use App\Services\Adapters\Storage\LocalStorageDriver;
 use App\Services\Adapters\Storage\S3StorageDriver;
-use DateTimeInterface;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -239,6 +238,9 @@ it('exercises all email, storage, error, link, and printer adapters safely', fun
     expect((new BookStackLinkProvider('https://kb.kasirku.id'))->url())->toBe('https://kb.kasirku.id');
     expect((new InstatusLinkProvider(''))->url())->toBe('https://kasirku.instatus.com');
     expect((new UptimeKumaLinkProvider('https://status.kasirku.id'))->url())->toBe('https://status.kasirku.id');
+    expect(fn () => new ChatwootLinkProvider(''))->toThrow(RuntimeException::class);
+    expect(fn () => new BookStackLinkProvider(''))->toThrow(RuntimeException::class);
+    expect(fn () => new UptimeKumaLinkProvider(''))->toThrow(RuntimeException::class);
 
     $fakePrinter = new FakePrinterDriver;
     expect($fakePrinter->print(['order_number' => 'INV-1']))->toBeTrue();
