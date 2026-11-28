@@ -40,7 +40,7 @@
 
 ---
 
-## 2. Diperbarui / Diubah (Modified — 6 File)
+## 2. Diperbarui / Diubah (Modified — 7 File)
 
 | Path | Fungsi | Alasan Perubahan | Status |
 |---|---|---|---|
@@ -50,6 +50,7 @@
 | `index.html` | Portal verifikasi browser | Memperbarui header/hero ke Sub-Fase 0B dan menambahkan tab `Sub-Fase 0B: Contracts, Guard & Schema` | Selesai |
 | `resources/css/subfase-0a.css` | Stylesheet CSS murni portal | Menambahkan kelas BEM `.stack-column`, `.preset-bar`, `.guard-banner--*`, `.matrix-mark--*` tanpa warna hex | Selesai |
 | `resources/js/subfase-0a.js` | Modul ES Vanilla JS portal | Menambahkan renderer panel Sub-Fase 0B, simulator 8 Guard Rules interaktif, tabel matriks 21×6, dan gabungan riwayat perubahan 0A & 0B | Selesai |
+| `.github/workflows/ci.yml` | Workflow CI 11 langkah | Memperbarui `aquasecurity/trivy-action` ke pinned commit SHA `v0.36.0` (karena tag `0.28.0` dihapus upstream), auto-generate `.env` CI, dan env DB pada step coverage | Selesai |
 
 ---
 

@@ -62,7 +62,12 @@ jobs:
 
       - name: Install Composer dependencies (if Laravel vendor/artisan initialized)
         if: hashFiles('artisan') != ''
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          if [ ! -f .env ] && [ -f .env.example ]; then
+            cp .env.example .env
+            php artisan key:generate --force
+          fi
 
       - name: Install NPM dependencies
         run: npm ci
@@ -145,7 +150,7 @@ jobs:
       # LANGKAH 9: Image Scan (Trivy)
       # ========================================================================
       - name: "9/11 Container & Config Scan (Trivy)"
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: "config"
           scan-ref: "."
@@ -166,6 +171,14 @@ jobs:
       # LANGKAH 11: Coverage Check
       # ========================================================================
       - name: "11/11 Coverage Check"
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: kasirku_test
+          DB_USERNAME: kasirku
+          DB_PASSWORD: kasirku_ci_password
+          REDIS_HOST: 127.0.0.1
         run: |
           if [ -f vendor/bin/pest ]; then
             ./vendor/bin/pest --coverage --min=100

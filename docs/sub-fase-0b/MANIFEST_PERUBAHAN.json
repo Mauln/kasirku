@@ -4,7 +4,7 @@
   "updatedAt": "2026-11-28",
   "summary": {
     "new": 70,
-    "modified": 6,
+    "modified": 7,
     "deleted": 0,
     "moved": 0
   },
@@ -84,6 +84,7 @@
     { "changeType": "Modified", "path": "scripts/dev-server.mjs", "purpose": "Server lokal Node.js port 3000", "reason": "Menambah endpoint /api/subfase-0b/overview & /guard-check", "status": "Selesai" },
     { "changeType": "Modified", "path": "index.html", "purpose": "Portal HTML utama", "reason": "Menambahkan tab Sub-Fase 0B Contracts, Guard & Schema", "status": "Selesai" },
     { "changeType": "Modified", "path": "resources/css/subfase-0a.css", "purpose": "Stylesheet portal", "reason": "Menambah styling BEM guard simulator & matriks 21x6", "status": "Selesai" },
-    { "changeType": "Modified", "path": "resources/js/subfase-0a.js", "purpose": "ES module portal vanilla", "reason": "Merender panel Sub-Fase 0B, simulator guard, & matriks", "status": "Selesai" }
+    { "changeType": "Modified", "path": "resources/js/subfase-0a.js", "purpose": "ES module portal vanilla", "reason": "Merender panel Sub-Fase 0B, simulator guard, & matriks", "status": "Selesai" },
+    { "changeType": "Modified", "path": ".github/workflows/ci.yml", "purpose": "Pipeline CI 11 langkah GitHub Actions", "reason": "Memperbarui trivy-action ke commit SHA v0.36.0, inisialisasi .env CI, dan env DB pada step coverage", "status": "Selesai" }
   ]
 }
