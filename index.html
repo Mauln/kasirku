@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kasirku v2.0 — Sub-Fase 0A Workspace &amp; Panduan Fondasi</title>
+    <title>Kasirku v2.0 — Sub-Fase 0B Workspace &amp; Arsitektur Inti</title>
     <meta
       name="description"
       content="SaaS POS online untuk UMKM Indonesia — cepat, murah, tanpa ribet."
@@ -25,12 +25,12 @@
           <span class="brand__icon" aria-hidden="true">K</span>
           <div class="brand__text">
             <span class="brand__wordmark">Kasirku</span>
-            <span class="brand__subtitle">Sub-Fase 0A &middot; Fondasi Infrastruktur</span>
+            <span class="brand__subtitle">Sub-Fase 0B &middot; Contracts, Guard &amp; DB Core</span>
           </div>
         </div>
         <div class="header-badges">
           <span class="env-badge" role="status" aria-label="Environment Lokal">LOCAL</span>
-          <span class="version-badge">v2.0.0-0A</span>
+          <span class="version-badge">v2.0.0-0B</span>
         </div>
       </div>
     </header>
@@ -40,28 +40,39 @@
         <div class="hero-card__content">
           <p class="hero-card__eyebrow">Roadmap Pengembangan Kasirku v2.0 &middot; Fase 0</p>
           <h1 class="hero-card__title" id="hero-title">
-            Sub-Fase 0A: Inisialisasi Repository, Docker Lokal &amp; Pipeline CI
+            Sub-Fase 0B: Kontrak Adapter, Guard Rules &amp; Skema Database Core
           </h1>
           <p class="hero-card__desc">
-            Fondasi teknis untuk SaaS POS UMKM Indonesia dengan backend Laravel (PHP 8.4, MySQL 8.4,
-            Redis 7.4, Nginx 1.28) dan frontend vanilla murni (HTML + CSS + ES Modules) tanpa React,
-            Vue, TypeScript, maupun Tailwind.
+            8 Interface Contracts, 25 Adapter Implementations, 8 Guard Rules Production, 7 Tabel
+            Core (#1&ndash;#7), dan 5 Reference Seeders Idempoten (6 Paket &times; 21 Fitur = 126
+            Mapping) siap dijalankan di Laravel + MySQL 8.4.
           </p>
         </div>
-        <div class="hero-metrics" id="hero-metrics" aria-label="Ringkasan status Sub-Fase 0A"></div>
+        <div class="hero-metrics" id="hero-metrics" aria-label="Ringkasan status Fase 0"></div>
       </section>
 
-      <nav class="tab-nav" role="tablist" aria-label="Navigasi materi Sub-Fase 0A">
+      <nav class="tab-nav" role="tablist" aria-label="Navigasi materi Fase 0">
         <button
           type="button"
           class="tab-btn tab-btn--active"
           role="tab"
           aria-selected="true"
+          aria-controls="panel-subfase0b"
+          id="tab-subfase0b"
+          data-tab="subfase0b"
+        >
+          Sub-Fase 0B: Contracts, Guard &amp; Schema
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
           aria-controls="panel-overview"
           id="tab-overview"
           data-tab="overview"
         >
-          Ringkasan &amp; Kepatuhan
+          Ringkasan &amp; Kepatuhan 0A
         </button>
         <button
           type="button"
@@ -94,15 +105,23 @@
           id="tab-changes"
           data-tab="changes"
         >
-          Perubahan File 0A
+          Perubahan File 0A &amp; 0B
         </button>
       </nav>
+
+      <section
+        class="tab-panel"
+        id="panel-subfase0b"
+        role="tabpanel"
+        aria-labelledby="tab-subfase0b"
+      ></section>
 
       <section
         class="tab-panel"
         id="panel-overview"
         role="tabpanel"
         aria-labelledby="tab-overview"
+        hidden
       ></section>
 
       <section
@@ -133,7 +152,7 @@
     <footer class="app-footer">
       <div class="app-footer__inner">
         <p>Kasirku v2.0 &mdash; Vanilla Frontend Verified (ES Modules + CSS Custom Properties)</p>
-        <p>Tahap aktif: Sub-Fase 0A (Menunggu persetujuan sebelum Sub-Fase 0B)</p>
+        <p>Tahap aktif: Sub-Fase 0B (Menunggu persetujuan sebelum Sub-Fase 0C)</p>
       </div>
     </footer>
 

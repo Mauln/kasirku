@@ -1,7 +1,10 @@
 const state = {
-  activeTab: "overview",
+  activeTab: "subfase0b",
   changeFilter: "ALL",
+  guardPreset: "local",
   manifest: null,
+  subfase0b: null,
+  guardReport: null,
 };
 
 function el(tag, className, text) {
@@ -31,7 +34,7 @@ const CI_STEPS = [
   "3. Lint CSS — Stylelint (.stylelintrc.json, color-no-hex + BEM)",
   "4. Format Check — Prettier (.prettierrc)",
   "5. Test Backend — Pest (PHP 8.4 + MySQL 8.4 + Redis 7.4)",
-  "6. Test JS Vanilla — Node test runner (tests/Unit/SubFase0A/*.test.mjs)",
+  "6. Test JS Vanilla — Node test runner (tests/Unit/SubFase0A & 0B)",
   "7. Audit Dependency — composer audit + npm audit",
   "8. Secret Scan — Gitleaks (.gitleaks.toml)",
   "9. Image/Config Scan — Trivy",
@@ -55,8 +58,8 @@ const LARAVEL_STEPS = [
   {
     title: "3. Pindahkan & Gabungkan File AI Studio Secara Aman",
     status: "Selesai di Repo",
-    cmd: "# Cek struktur sebelum memindahkan agar tidak menimpa vendor/ atau artisan:\n# Hapus starter React/TS/Tailwind (src/, tsconfig.json, vite.config.ts)\n# Pertahankan konfigurasi Docker, CI, ESLint, Stylelint, Husky, dan docs/",
-    desc: "File template React/TS/Tailwind bawaan AI Studio telah digantikan oleh struktur Vanilla Frontend + Docker + CI sesuai Aturan Emas #41-42.",
+    cmd: "# Cek struktur sebelum memindahkan agar tidak menimpa vendor/ atau artisan:\n# Hapus starter React/TS/Tailwind (src/, tsconfig.json, vite.config.ts)\n# Pertahankan konfigurasi Docker, CI, ESLint, Stylelint, Husky, Contracts, Guard, Migrations, Seeders",
+    desc: "File template React/TS/Tailwind bawaan AI Studio telah digantikan oleh struktur Vanilla Frontend + Contracts + Guard Rules + Core Schema.",
   },
   {
     title: "4. Setup Git, Branch Strategy & GitHub",
@@ -65,10 +68,10 @@ const LARAVEL_STEPS = [
     desc: "Branch main dilindungi (dilarang commit langsung oleh .husky/pre-commit). Gunakan Conventional Commits yang divalidasi oleh .husky/commit-msg.",
   },
   {
-    title: "5. Jalankan Stack Docker Lokal (7 Services)",
+    title: "5. Jalankan Stack Docker Lokal (7 Services) & Migrasi 0B",
     status: "Siap Dijalankan",
-    cmd: "docker compose up -d --build\ndocker compose ps\ndocker compose exec app php artisan about\n# Akses http://localhost:8000 dan phpMyAdmin http://localhost:8080",
-    desc: "Menjalankan app, nginx, mysql, redis, queue, scheduler, dan phpmyadmin sekaligus secara konsisten.",
+    cmd: "docker compose up -d --build\ndocker compose exec app php artisan migrate --seed\ndocker compose exec app php artisan app:check-production --dry-run",
+    desc: "Menjalankan 7 layanan Docker lalu mengeksekusi 7 tabel inti (#1-#7) beserta 5 Reference Seeders (6 plans, 21 features, 126 plan_features, 3 add-ons, 1 admin).",
   },
 ];
 
@@ -79,20 +82,16 @@ function createStatusPill(label, variant) {
 function renderHeroMetrics() {
   const container = document.getElementById("hero-metrics");
   if (!container) return;
-  const counts = state.manifest?.summary || {
-    new: 0,
-    modified: 0,
-    deleted: 0,
-    moved: 0,
-  };
+
+  const contractCount = state.subfase0b?.contracts?.length || 8;
+  const migrationCount = state.subfase0b?.migrations?.length || 7;
+  const matrixTotal = state.subfase0b?.matrix?.totalMappings || 126;
+
   const metrics = [
-    { value: "7", label: "Service Docker Lokal" },
-    { value: "11", label: "Langkah CI GitHub Actions" },
-    { value: "0", label: "Framework Terlarang (Vanilla)" },
-    {
-      value: `${counts.new + counts.modified + counts.deleted + counts.moved}`,
-      label: "Perubahan File Terdokumentasi",
-    },
+    { value: String(contractCount), label: "Interface Contracts" },
+    { value: "8", label: "Guard Rules Production" },
+    { value: String(migrationCount), label: "Tabel Core (#1-#7)" },
+    { value: String(matrixTotal), label: "Plan × Feature Matrix" },
   ];
 
   const nodes = metrics.map((m) => {
@@ -102,6 +101,195 @@ function renderHeroMetrics() {
     return box;
   });
   container.replaceChildren(...nodes);
+}
+
+function renderSubFase0BPanel() {
+  const panel = document.getElementById("panel-subfase0b");
+  if (!panel) return;
+
+  const topGrid = el("div", "section-grid");
+
+  // Card 1: 8 Contracts + 25 Adapters
+  const contractsCard = el("article", "card");
+  contractsCard.append(el("h2", "card__title", "8 Adapter Contracts & 25 Implementations"));
+  contractsCard.append(
+    el(
+      "p",
+      "card__desc",
+      "Seluruh layanan eksternal diakses lewat app/Contracts/* dan di-bind di AppServiceProvider::register() berdasar config/services.php."
+    )
+  );
+  const contractList = el("ul", "check-list");
+  for (const item of state.subfase0b?.contracts || []) {
+    const li = el("li", "check-list__item");
+    const left = el("div");
+    left.append(el("strong", "mono", item.name));
+    left.append(el("div", "", `${item.file} (${item.methods.join(", ")})`));
+    li.append(left);
+    li.append(
+      createStatusPill(
+        item.exists && item.methodsFound ? "CONTRACT OK" : "MISSING",
+        item.exists && item.methodsFound ? "ok" : "danger"
+      )
+    );
+    contractList.append(li);
+  }
+  contractsCard.append(contractList);
+
+  // Card 2: 7 Migrations & 5 Reference Seeders
+  const dbCard = el("article", "card");
+  dbCard.append(el("h2", "card__title", "7 Tabel Core (#1-#7) & 5 Reference Seeders"));
+  dbCard.append(
+    el(
+      "p",
+      "card__desc",
+      "Menggunakan InnoDB + utf8mb4_unicode_ci + method down() lengkap dan seeder idempoten via updateOrCreate()."
+    )
+  );
+  const migList = el("ul", "check-list");
+  for (const mig of state.subfase0b?.migrations || []) {
+    const li = el("li", "check-list__item");
+    const left = el("div");
+    left.append(el("strong", "mono", mig.table));
+    left.append(el("div", "mono", mig.file));
+    li.append(left);
+    const ok = mig.exists && mig.hasUtf8mb4 && mig.hasDown;
+    li.append(createStatusPill(ok ? "UTF8MB4 + DOWN" : "CHECK", ok ? "ok" : "warn"));
+    migList.append(li);
+  }
+  dbCard.append(migList);
+
+  topGrid.append(contractsCard, dbCard);
+
+  // Stack below: Guard Simulator + 21x6 Matrix + Manifest 0B
+  const stack = el("div", "stack-column");
+
+  // Guard Rules Simulator Card
+  const guardCard = el("article", "card");
+  guardCard.append(
+    el("h2", "card__title", "Simulator 8 Guard Rules Production (app:check-production)")
+  );
+  guardCard.append(
+    el(
+      "p",
+      "card__desc",
+      "Uji aturan keamanan boot di AppServiceProvider::boot() agar driver dev/log/sync tidak pernah lolos ke environment produksi."
+    )
+  );
+
+  const presetBar = el("div", "preset-bar");
+  const presets = [
+    { key: "local", label: "Local Dev (.env.example)" },
+    { key: "staging", label: "Staging (Render + TiDB)" },
+    { key: "production-safe", label: "Production Aman (RG Pass)" },
+  ];
+  for (const p of presets) {
+    const btn = el(
+      "button",
+      `filter-btn${state.guardPreset === p.key ? " filter-btn--active" : ""}`,
+      p.label
+    );
+    btn.type = "button";
+    btn.dataset.guardPreset = p.key;
+    presetBar.append(btn);
+  }
+  guardCard.append(presetBar);
+
+  if (state.guardReport) {
+    const banner = el(
+      "div",
+      `guard-banner ${state.guardReport.passed ? "guard-banner--ok" : "guard-banner--fail"}`,
+      state.guardReport.passed
+        ? `LULUS (${state.guardReport.totalRules}/${state.guardReport.totalRules} Guard Rules): Aplikasi diizinkan boot pada mode production.`
+        : `DITOLAK (${state.guardReport.failedCount} dari ${state.guardReport.totalRules} aturan gagal): Production boot dihentikan & dicatat ke audit env_guard_failed.`
+    );
+    guardCard.append(banner);
+
+    const gWrap = el("div", "table-wrap");
+    const gTable = el("table", "data-table");
+    const gHead = el("thead");
+    const gHeadRow = el("tr");
+    for (const h of ["#", "Env Key", "Status", "Nilai Aktual", "Harapan Produksi"]) {
+      gHeadRow.append(el("th", "", h));
+    }
+    gHead.append(gHeadRow);
+    gTable.append(gHead);
+
+    const gBody = el("tbody");
+    for (const rule of state.guardReport.rules || []) {
+      const tr = el("tr");
+      tr.append(el("td", "mono", `#${rule.rule}`));
+      tr.append(el("td", "mono", rule.envKey));
+      const statusTd = el("td");
+      statusTd.append(
+        createStatusPill(rule.passed ? "PASS" : "FAIL", rule.passed ? "ok" : "danger")
+      );
+      tr.append(statusTd);
+      tr.append(el("td", "mono", rule.actual));
+      tr.append(el("td", "", rule.expected));
+      gBody.append(tr);
+    }
+    gTable.append(gBody);
+    gWrap.append(gTable);
+    guardCard.append(gWrap);
+  }
+  stack.append(guardCard);
+
+  // Plan x Feature Matrix Card (21 x 6)
+  const matrixCard = el("article", "card");
+  matrixCard.append(
+    el("h2", "card__title", "Feature Matrix Ter-seed: 21 Fitur × 6 Paket (126 Baris)")
+  );
+  matrixCard.append(
+    el(
+      "p",
+      "card__desc",
+      "Diekstrak langsung dari PlanSeeder.php, FeatureSeeder.php, dan PlanFeatureSeeder.php."
+    )
+  );
+  const mWrap = el("div", "table-wrap");
+  const mTable = el("table", "data-table");
+  const mHead = el("thead");
+  const mHeadRow = el("tr");
+  const planHeaders = [
+    ["trial", "Trial"],
+    ["starter_basic", "Basic"],
+    ["starter", "Starter"],
+    ["advance", "Advance"],
+    ["prime", "Prime"],
+    ["prime_plus", "Prime+"],
+  ];
+  mHeadRow.append(el("th", "", "Kode Fitur (21)"));
+  for (const [, title] of planHeaders) {
+    mHeadRow.append(el("th", "", title));
+  }
+  mHead.append(mHeadRow);
+  mTable.append(mHead);
+
+  const mBody = el("tbody");
+  for (const row of state.subfase0b?.matrix?.rows || []) {
+    const tr = el("tr");
+    tr.append(el("td", "mono", row.code));
+    for (const [planCode] of planHeaders) {
+      const td = el("td");
+      const enabled = Boolean(row.plans?.[planCode]);
+      td.append(
+        el(
+          "span",
+          `matrix-mark ${enabled ? "matrix-mark--yes" : "matrix-mark--no"}`,
+          enabled ? "YA" : "-"
+        )
+      );
+      tr.append(td);
+    }
+    mBody.append(tr);
+  }
+  mTable.append(mBody);
+  mWrap.append(mTable);
+  matrixCard.append(mWrap);
+  stack.append(matrixCard);
+
+  panel.replaceChildren(topGrid, stack);
 }
 
 function renderOverviewPanel() {
@@ -136,7 +324,7 @@ function renderOverviewPanel() {
   cardCompliance.append(compList);
 
   const cardGit = el("article", "card");
-  cardGit.append(el("h2", "card__title", "Git, Git Hooks & Kesiapan Sub-Fase 0A"));
+  cardGit.append(el("h2", "card__title", "Git, Git Hooks & Kesiapan Sub-Fase 0A–0B"));
   cardGit.append(
     el(
       "p",
@@ -149,8 +337,8 @@ function renderOverviewPanel() {
     ["Branch main & develop + proteksi pre-commit", "AKTIF", "ok"],
     ["Conventional Commits (.husky/commit-msg)", "AKTIF", "ok"],
     ["PR Template 8 Seksi (.github/PULL_REQUEST_TEMPLATE.md)", "TERSEDIA", "ok"],
-    ["Docs Panduan Laravel, 0A & Perubahan Struktur", "LENGKAP", "ok"],
-    ["Docker & Composer runtime di container AI Studio", "LOKAL USER", "warn"],
+    ["Docs Panduan 0A & 0B + Manifest Perubahan", "LENGKAP", "ok"],
+    ["PHP 8.4 / Docker / Composer runtime di container AI Studio", "LOKAL USER", "warn"],
   ];
   for (const [label, status, variant] of gitItems) {
     const li = el("li", "check-list__item");
@@ -239,9 +427,13 @@ function renderChangesPanel() {
   if (!panel) return;
 
   const card = el("article", "card");
-  card.append(el("h2", "card__title", "Dokumentasi Perubahan Struktur Project (Sub-Fase 0A)"));
+  card.append(el("h2", "card__title", "Dokumentasi Perubahan Struktur Project (Sub-Fase 0A & 0B)"));
   card.append(
-    el("p", "card__desc", "Sumber data langsung dari docs/sub-fase-0a/MANIFEST_PERUBAHAN.json.")
+    el(
+      "p",
+      "card__desc",
+      "Gabungan manifest docs/sub-fase-0b/MANIFEST_PERUBAHAN.json dan docs/sub-fase-0a/MANIFEST_PERUBAHAN.json."
+    )
   );
 
   const filterBar = el("div", "filter-bar");
@@ -258,7 +450,16 @@ function renderChangesPanel() {
   }
   card.append(filterBar);
 
-  const entries = (state.manifest?.entries || []).filter(
+  const entries0b = (state.subfase0b?.manifest?.entries || []).map((item) => ({
+    ...item,
+    phase: "0B",
+  }));
+  const entries0a = (state.manifest?.entries || []).map((item) => ({
+    ...item,
+    phase: "0A",
+  }));
+
+  const entries = [...entries0b, ...entries0a].filter(
     (item) => state.changeFilter === "ALL" || item.changeType === state.changeFilter
   );
 
@@ -266,7 +467,7 @@ function renderChangesPanel() {
   const table = el("table", "data-table");
   const thead = el("thead");
   const headRow = el("tr");
-  for (const heading of ["Status", "Path File / Folder", "Fungsi & Alasan"]) {
+  for (const heading of ["Fase", "Status", "Path File / Folder", "Fungsi & Alasan"]) {
     headRow.append(el("th", "", heading));
   }
   thead.append(headRow);
@@ -276,12 +477,13 @@ function renderChangesPanel() {
   if (entries.length === 0) {
     const emptyRow = el("tr");
     const emptyCell = el("td", "", "Tidak ada item pada kategori ini.");
-    emptyCell.colSpan = 3;
+    emptyCell.colSpan = 4;
     emptyRow.append(emptyCell);
     tbody.append(emptyRow);
   } else {
     for (const item of entries) {
       const row = el("tr");
+      row.append(el("td", "mono", item.phase));
       const statusTd = el("td");
       statusTd.append(createStatusPill(item.changeType, getStatusVariant(item.changeType)));
       const pathTd = el("td", "mono", item.path);
@@ -305,13 +507,26 @@ function renderActiveTab() {
     btn.setAttribute("aria-selected", isActive ? "true" : "false");
   });
 
-  const panels = ["overview", "laravel", "infra", "changes"];
+  const panels = ["subfase0b", "overview", "laravel", "infra", "changes"];
   for (const name of panels) {
     const panel = document.getElementById(`panel-${name}`);
     if (panel) {
       panel.hidden = name !== state.activeTab;
     }
   }
+}
+
+async function loadGuardPreset(presetKey) {
+  state.guardPreset = presetKey;
+  try {
+    const res = await fetch(`/api/subfase-0b/guard-check?preset=${encodeURIComponent(presetKey)}`);
+    if (res.ok) {
+      state.guardReport = await res.json();
+    }
+  } catch (err) {
+    console.warn("Gagal memuat simulasi guard:", err);
+  }
+  renderSubFase0BPanel();
 }
 
 function bindEvents() {
@@ -327,6 +542,11 @@ function bindEvents() {
     if (filterBtn && filterBtn.dataset.filter) {
       state.changeFilter = filterBtn.dataset.filter;
       renderChangesPanel();
+      return;
+    }
+
+    if (filterBtn && filterBtn.dataset.guardPreset) {
+      loadGuardPreset(filterBtn.dataset.guardPreset);
     }
   });
 }
@@ -334,15 +554,20 @@ function bindEvents() {
 async function init() {
   bindEvents();
   try {
-    const response = await fetch("/api/subfase-0a/manifest");
-    if (response.ok) {
-      state.manifest = await response.json();
-    }
+    const [res0a, res0b, resGuard] = await Promise.all([
+      fetch("/api/subfase-0a/manifest"),
+      fetch("/api/subfase-0b/overview"),
+      fetch(`/api/subfase-0b/guard-check?preset=${encodeURIComponent(state.guardPreset)}`),
+    ]);
+    if (res0a.ok) state.manifest = await res0a.json();
+    if (res0b.ok) state.subfase0b = await res0b.json();
+    if (resGuard.ok) state.guardReport = await resGuard.json();
   } catch (err) {
-    console.warn("Gagal memuat manifest perubahan:", err);
+    console.warn("Gagal memuat data Sub-Fase 0A/0B:", err);
   }
 
   renderHeroMetrics();
+  renderSubFase0BPanel();
   renderOverviewPanel();
   renderLaravelPanel();
   renderInfraPanel();
